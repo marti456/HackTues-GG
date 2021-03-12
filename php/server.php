@@ -1,4 +1,9 @@
 <?php
+
+
+
+
+
 $servername = "localhost";
 $username = "username";
 $password = "password";
@@ -29,9 +34,11 @@ $sql = "CREATE TABLE Districts(
 $sql = "CREATE TABLE Bin(
     id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     address VARCHAR(100) NOT NULL,
-    bin_id INT,
-    FOREIGN KEY (bin_id) REFERENCES District(id)
+    district_id INT,
+    FOREIGN KEY (district_id) REFERENCES District(id)
 )";
+
+
 
 $conn->close();
 ?>
