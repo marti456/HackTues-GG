@@ -63,13 +63,9 @@ Wire Wire Line
 	1100 4200 1900 4200
 Wire Wire Line
 	1900 4200 1900 4450
-Wire Wire Line
-	3400 4300 1600 4300
-Wire Wire Line
-	1600 4300 1600 4450
 Connection ~ 1800 6800
 $Comp
-L Sensor_Distance:InfraRed U?
+L KiCad-scheme-rescue:InfraRed-Sensor_Distance U?
 U 1 1 604BD4C7
 P 3400 5250
 F 0 "U?" H 3729 5659 50  0000 C CNN
@@ -107,4 +103,8 @@ Wire Wire Line
 	3100 5900 3100 6800
 Wire Wire Line
 	3100 6800 2500 6800
+Wire Wire Line
+	3400 4300 1700 4300
+Wire Wire Line
+	1700 4300 1700 4450
 $EndSCHEMATC
