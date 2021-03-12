@@ -14,7 +14,7 @@ const int http_port = 8080;
 
 int id = 1;
 
-String address = "Goce Delchev";
+//String address = "j.k. Goce Delchev ulitsa Kostenski vodopad";
 
 /***********************************************************
  * Functions
@@ -27,7 +27,7 @@ void SendData()
     http.begin("http://192.168.1.88:8085/server.php");      //Specify request destination
     http.addHeader("Content-Type", "application/json");  //Specify content-type header
  
-    int httpResponseCode = http.POST("{\"id\":\"1\",\"address\":\"Goce Delchev\"}");   //Send the request
+    int httpResponseCode = http.POST("{\"id\":\" + id + \",\"address\":\" + address + \"}");   //Send the request
     String payload = http.getString();                  //Get the response payload
  
     Serial.println(payload);    //Print request response payload

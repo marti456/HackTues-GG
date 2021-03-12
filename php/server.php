@@ -1,44 +1,15 @@
 <?php
 
+$id = $_POST['id'];
+$address = $_POST['address'];
 
 
+if ($id != null) {
+  if ($address != null) {
+	$sql = "UPDATE Bin SET is_full = 'True' WHERE id = " + $id
 
-
-$servername = "localhost";
-$username = "username";
-$password = "password";
-
-// Create connection
-$conn = new mysqli($servername, $username, $password);
-// Check connection
-if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
+	$conn->close();
+  }
 }
 
-// Create database
-$sql = "CREATE DATABASE GarbageCollect";
-if ($conn->query($sql) == TRUE) {
-  echo "Database created successfully";
-} else {
-  echo "Error creating database: " . $conn->error;
-}
-
-// Attempt create table query execution
-$sql = "CREATE TABLE Districts(
-    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    district VARCHAR(50) NOT NULL,
-    driver_username VARCHAR(100) NOT NULL,
-    driver_password VARCHAR(100) NOT NULL
-)";
-
-$sql = "CREATE TABLE Bin(
-    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    address VARCHAR(100) NOT NULL,
-    district_id INT,
-    FOREIGN KEY (district_id) REFERENCES District(id)
-)";
-
-
-
-$conn->close();
 ?>
