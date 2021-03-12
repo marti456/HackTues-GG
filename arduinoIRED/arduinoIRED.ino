@@ -25,12 +25,11 @@ void SendData()
     HTTPClient http;    //Declare object of class HTTPClient
  
     http.begin("http://192.168.1.88:8085/server.php");      //Specify request destination
-    http.addHeader("Content-Type", "text/plain");  //Specify content-type header
+    http.addHeader("Content-Type", "application/json");  //Specify content-type header
  
-    int httpCode = http.POST("Message from ESP8266");   //Send the request
+    int httpResponseCode = http.POST("{\"id\":\"1\",\"address\":\"Goce Delchev\"}");   //Send the request
     String payload = http.getString();                  //Get the response payload
  
-    Serial.println(httpCode);   //Print HTTP return code
     Serial.println(payload);    //Print request response payload
  
     http.end();  //Close connection
