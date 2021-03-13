@@ -1,7 +1,7 @@
 #include <ESP8266WiFi.h>
 #include <ESP8266HTTPClient.h>
 
-#define IRSensor 2
+#define IRSensor 5
 
 
 
@@ -32,6 +32,10 @@ void SendData()
     Serial.println(payload);    //Print request response payload
 
     http.end();  //Close connection
+    Serial.println("Enter in sleep mode");
+    delay(500);
+    ESP.deepSleep(3600e6);
+    //delay(36000);
 }
 
 /***********************************************************
