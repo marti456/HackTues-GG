@@ -24,14 +24,13 @@ void SendData()
 {
     HTTPClient http;    //Declare object of class HTTPClient
  
-    http.begin("http://192.168.1.88:8085/server.php");      //Specify request destination
-    http.addHeader("Content-Type", "application/json");  //Specify content-type header
- 
-    int httpResponseCode = http.POST("{\"id\":\" + id + \",\"address\":\" + address + \"}");   //Send the request
-    String payload = http.getString();                  //Get the response payload
- 
+    http.begin("http://192.168.1.12/server.php");      //Specify request destination
+    http.addHeader("Content-Type", "application/x-www-form-urlencoded");  //Specify content-type header
+    String postData = "id="+String(id); 
+    int httpResponseCode = http.POST(postData);   //Send the request
+    String payload = http.getString();                   //Get the response payload
     Serial.println(payload);    //Print request response payload
- 
+
     http.end();  //Close connection
 }
 
@@ -78,13 +77,13 @@ void loop() {
     Serial.println("wifi is connected");   //Print HTTP return code
     //check the sensor
     int statusSensor = digitalRead (IRSensor);
-
+    
+    Serial.println(statusSensor);
     //if there is sognal call gunction SendData()
     if (statusSensor == 1){
-      Serial.println("not object detected");
+      Serial.println("object detected");
       SendData();  
     }
-
     else{
         Serial.println("not object detected");
         delay(1000);
@@ -99,6 +98,6 @@ void loop() {
 
   
  
-  delay(30000);  //Send a request every 30 seconds
+  delay(1000);  //Send a request every 30 seconds
   
 }
