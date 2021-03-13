@@ -5,53 +5,11 @@ $password = "";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password);
+
+$conn->select_db('GarbageCollect');
 // Check connection
 if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
-}
-
-// Create database
-$sql = "CREATE DATABASE IF NOT EXISTS GarbageCollect;";
-if ($conn->query($sql) == FALSE) {
-   echo "Error creating database: " . $conn->error;
-}
-$retval = $conn->query($sql);
-if(! $retval ) {
-  die('Could not create db: ' . mysql_error());
-}
-///////////////////////////////////////////////////
-/* change db to world db */
-$conn->select_db('GarbageCollect');
-
-/* return name of current default database */
-if ($result = $conn->query("SELECT DATABASE()")) {
-    $row = $result->fetch_row();
-    printf("Default database is %s.\n", $row[0]);
-    $result->close();
-}
-
-///////////////////////////////////////////////////
-
-// Attempt create table query execution
-
-$sql = "CREATE TABLE IF NOT EXISTS Bin(
-    id INT NOT NULL  PRIMARY KEY AUTO_INCREMENT,
-    address VARCHAR(100) NOT NULL
-);";
-$retval = $conn->query( $sql );
-if(! $retval ) {
-  die('Could not create table: ' . mysql_error());
-}
-$sql = "CREATE TABLE IF NOT EXISTS Districts(
-    id INT NOT NULL AUTO_INCREMENT,
-    district VARCHAR(50) NOT NULL,
-    PRIMARY KEY (id),
-    bin_id INT,
-    FOREIGN KEY (bin_id) REFERENCES Bin(id)
-);";
-$retval = $conn->query( $sql, );
-if(! $retval ) {
-  die('Could not create table: ' . mysql_error());
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -59,18 +17,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $address = $_POST['address'];
   //echo "district: ".$district;
   //echo "address: ".$address;
-  $sql = "INSERT INTO Bin (address) VALUES ('".$address."');";
+
+  // Create connection
+  $conn = new mysqli($servername, $username, $password);
+
+  $conn->select_db('GarbageCollect');
+  // Check connection
+  if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+  }
+
+  $sql = "INSERT INTO Bin (address, is_full) VALUES ('".$address."', 0);";
   $retval = $conn->query( $sql );
   if(! $retval ) {
   echo $sql."\n";
   die('Could not send query: ' . $conn->error);
 }
-  //$sql = "SET BIN_ID = SELECT id FROM Bin WHERE address=' ".$address." '";
+  /*//$sql = "SET BIN_ID = SELECT id FROM Bin WHERE address=' ".$address." '";
   $retval = $conn->query( $sql );
   if(! $retval ) {
   echo $sql."\n";
   die('Could not send query: ' . $conn->error);
-}
+}*/
   $last_id = $conn->insert_id;
   $sql = "INSERT INTO Districts(district, bin_id) VALUES ('".$district."', ".$last_id.")";
   $retval = $conn->query( $sql );
@@ -78,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   die('Could not send query: ' . $conn->error);
 }
 
-  echo "<h2>Контейнерът е добавен успешно с id: ".$last_id."</h2>";
+  echo '<h2 style="text-align:center">Контейнерът е добавен успешно с id: '.$last_id.'</h2>';
 
 }
 
@@ -191,7 +159,7 @@ $conn->close();
 <div class="form-style-5">
 <form action="/index.php" method="post">
 <fieldset>
-<legend><span class="number"></span>Информация за новата кофа</legend>
+<legend><span class="number"></span>Информация за нов контейнер</legend>
 <input type="text" name="district" placeholder="Район *">
 <input type="text" name="address" placeholder="Адрес *">
 
