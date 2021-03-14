@@ -89,8 +89,17 @@ void loop() {
     Serial.println(statusSensor);
     //if there is sognal call gunction SendData()
     if (statusSensor == 1){
-      Serial.println("object detected");
-      SendData();  
+
+      for(int i = 0; i < 7; i++){
+        if(statusSensor == 0){
+          break;
+        }
+        if(i == 6){
+          Serial.println("object detected");
+          SendData();
+        }
+        delay(1000);
+      } 
     }
     else{
         Serial.println("not object detected");
