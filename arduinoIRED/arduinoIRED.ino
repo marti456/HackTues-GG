@@ -2,7 +2,7 @@
 #include <ESP8266HTTPClient.h>
 
 #define IRSensor 5
-
+#define LED 15
 
 
 // Constants
@@ -34,7 +34,7 @@ void SendData()
     http.end();  //Close connection
     Serial.println("Enter in sleep mode");
     delay(500);
-    ESP.deepSleep(3600e6);
+    
     //delay(36000);
 }
 
@@ -45,6 +45,8 @@ void SendData()
 void setup() {
   // Init IR sensor
   pinMode (IRSensor, INPUT); // sensor pin INPUT
+  pinMode (LED, OUTPUT); // sensor pin OUTPUT
+  digitalWrite(LED, HIGH);
   
   // Start Serial port
   Serial.begin(115200);
@@ -90,8 +92,12 @@ void loop() {
     }
     else{
         Serial.println("not object detected");
-        delay(1000);
+        delay(500);
     }
+
+    digitalWrite(LED, LOW);
+    ESP.deepSleep(10e6);
+    //ESP.deepSleep(ESP.deepSleepMax()); //sleeps for 3:25 hours/
 
     
   } else {
