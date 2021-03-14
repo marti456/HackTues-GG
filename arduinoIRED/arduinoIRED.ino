@@ -46,7 +46,6 @@ void setup() {
   // Init IR sensor
   pinMode (IRSensor, INPUT); // sensor pin INPUT
   pinMode (LED, OUTPUT); // sensor pin OUTPUT
-  digitalWrite(LED, HIGH);
   
   // Start Serial port
   Serial.begin(115200);
@@ -62,6 +61,9 @@ void setup() {
     Serial.println("Waiting for connection");
  
   }
+
+  digitalWrite(LED, HIGH);
+  delay(100);
 
   // Print our IP address
   Serial.println();
