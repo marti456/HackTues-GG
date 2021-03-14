@@ -29,9 +29,9 @@ class _MyHomePageState extends State<MyHomePage> {
   List<WasteContainer> acontainers = new List<WasteContainer>();
 
   Future<List<WasteContainer>> fetchNotes() async{
-    var url = '/';/////to type the link
+    var url = 'http://192.168.1.12/flutterResponse.php';/////to type the link
     var response = await http.get(url);
-
+    print(response);
     var containers = List<WasteContainer>();
 
 
@@ -40,6 +40,7 @@ class _MyHomePageState extends State<MyHomePage> {
       for(var contJson in wasteContainersJson){
         containers.add(contJson);
       }
+
     }
   }
 
@@ -56,9 +57,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Api Demo'),
+        title: Text('Waste Managment'),
         backgroundColor: Colors.blue,
         ),
+        
       body: ListView.builder(
         itemBuilder: (context, index){
           return Card(
