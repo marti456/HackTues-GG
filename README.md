@@ -1,4 +1,4 @@
-# HackTues-GG
+# GreenWasteManagment(HackTues-GG)
 
 __Idea description:__<br>
 
